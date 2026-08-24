@@ -12,6 +12,8 @@ class HeatingController:
         effective_target = self.target_temp
         if self.mode == "ECO":
             effective_target = self.target_temp -2
+        elif self.mode == "AWAY":
+            effective_target = self.target_temp -5
         if current_temp < (effective_target- self.hysteresis):
             self.action = "HEATING"
         elif current_temp >= effective_target:

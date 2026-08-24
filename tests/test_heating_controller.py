@@ -64,3 +64,15 @@ def test_heating_away_mode():
     controller.set_mode("AWAY")
     result = controller.get_action(current_temp=15)
     assert result=="HEATING"
+
+def test_switching_eco_away_comfort_mode():
+    controller = HeatingController(target_temp=21,hysteresis=0.5)
+    controller.set_mode("ECO")
+    result = controller.get_action(current_temp=17)
+    assert result=="HEATING"
+    controller.set_mode("AWAY")
+    result = controller.get_action(current_temp=19)
+    assert result == "OFF"
+    controller.set_mode("COMFORT")
+    result = controller.get_action(current_temp=19)
+    assert result == "HEATING"

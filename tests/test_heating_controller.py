@@ -143,3 +143,11 @@ def test_mode_manualoverride_independence():
     result = controller.get_action(current_temp=10)
     assert result=="OFF"
 
+def test_new_controller_without_manualoverride_active():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    controller.set_manual_override("OFF")
+    result = controller.get_action(current_temp=10)
+    assert result=="OFF"
+    controller2 = HeatingController(target_temp=21, hysteresis=0.5)
+    result = controller2.get_action(current_temp=10)
+    assert result=="HEATING"

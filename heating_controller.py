@@ -7,6 +7,7 @@ class HeatingController:
         self.hysteresis = hysteresis
         self.action = "OFF"
         self.mode = "COMFORT"
+        self.manual = False
 
     def validate_target_temp(self,targettemp):
         if targettemp <20 or targettemp >30:
@@ -22,6 +23,10 @@ class HeatingController:
             raise ValueError("Invalid mode")
         self.mode =mode
 
+    def set_manual_override(self,mode):
+        if mode == "OFF":
+            self.manual = True
+
     def get_action(self,current_temp):
         if current_temp >60 or current_temp < -50:
             raise ValueError("Invalid Temperature")
@@ -30,8 +35,11 @@ class HeatingController:
             effective_target = self.target_temp -2
         elif self.mode == "AWAY":
             effective_target = self.target_temp -5
-        if current_temp < (effective_target- self.hysteresis):
-            self.action = "HEATING"
-        elif current_temp >= effective_target:
+        if self.manual:
             self.action = "OFF"
+        else:
+            if current_temp < (effective_target- self.hysteresis):
+                self.action = "HEATING"
+            elif current_temp >= effective_target:
+                self.action = "OFF"
         return self.action

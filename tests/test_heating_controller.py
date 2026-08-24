@@ -209,3 +209,17 @@ def test_targettemp_change_auto_mode_heatingon_to_off():
     controller.set_target_temperature(20)
     result = controller.get_action(current_temp=20)
     assert result=="OFF"
+
+def test_hysteresis_boundary_keeps_heating_state():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    result = controller.get_action(current_temp=20.3)
+    assert result=="HEATING"
+    result = controller.get_action(current_temp=20.5)
+    assert result=="HEATING"
+
+def test_hysteresis_boundary_keeps_off_state():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    result = controller.get_action(current_temp=21)
+    assert result=="OFF"
+    result = controller.get_action(current_temp=20.5)
+    assert result=="OFF"

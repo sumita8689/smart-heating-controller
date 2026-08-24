@@ -17,5 +17,6 @@ def test_heating_when_temp_below_lower_hysteresis_limit():
 
 def test_heating_remains_on_within_hysteresis_range():
     controller = HeatingController(target_temp=21,hysteresis=0.5)
+    controller.get_action(current_temp=20.3)
     result = controller.get_action(current_temp=20.7)
     assert result == "HEATING"

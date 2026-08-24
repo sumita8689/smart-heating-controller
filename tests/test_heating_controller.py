@@ -109,8 +109,17 @@ def test_target_temp_change_to_invalid_value():
     with pytest.raises(ValueError):
         controller.set_target_temperature(15)
 
-def test_manual_override_off():
+def test_activate_manual_override_off():
     controller = HeatingController(target_temp=21, hysteresis=0.5)
     controller.set_manual_override("OFF")
     result = controller.get_action(current_temp=15)
     assert result == "OFF"
+
+def test_deactivate_manual_override_off():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    controller.set_manual_override("OFF")
+    result = controller.get_action(current_temp=15)
+    assert result == "OFF"
+    controller.set_manual_override("AUTO")
+    result = controller.get_action(current_temp=15)
+    assert result == "HEATING"

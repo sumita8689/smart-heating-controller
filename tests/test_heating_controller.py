@@ -129,7 +129,7 @@ def test_activate_manual_override_invalid():
     with pytest.raises(ValueError):
         controller.set_manual_override("ABC")
 
-def test_targettemp_manualoverride_independence():
+def test_targettemp_change_manualoverride_on_mode():
     controller = HeatingController(target_temp=21, hysteresis=0.5)
     controller.set_manual_override("OFF")
     controller.set_target_temperature(27)
@@ -152,7 +152,7 @@ def test_new_controller_without_manualoverride_active():
     result = controller2.get_action(current_temp=10)
     assert result=="HEATING"
 
-def test_override_state_switch():
+def test_manualoverride_state_switch():
     controller = HeatingController(target_temp=21, hysteresis=0.5)
     controller.set_manual_override("OFF")
     result = controller.get_action(current_temp=10)
@@ -166,3 +166,30 @@ def test_override_state_switch():
     controller.set_manual_override("AUTO")
     result = controller.get_action(current_temp=10)
     assert result=="HEATING"
+
+def test_targettemp_change_auto_mode():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    result = controller.get_action(current_temp=22)
+    assert result=="OFF"
+    controller.set_target_temperature(23)
+    result = controller.get_action(current_temp=22)
+    assert result=="HEATING"
+
+def test_targettemp_change_eco_mode():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    controller.set_mode("ECO")
+    result = controller.get_action(current_temp=18)
+    assert result=="HEATING"
+    controller.set_target_temperature(20)
+    result = controller.get_action(current_temp=20)
+    assert result=="OFF"
+
+
+def test_targettemp_change_away_mode():
+    controller = HeatingController(target_temp=20, hysteresis=0.5)
+    controller.set_mode("AWAY")
+    result = controller.get_action(current_temp=14)
+    assert result == "HEATING"
+    controller.set_target_temperature(21)
+    result = controller.get_action(current_temp=16)
+    assert result == "OFF"

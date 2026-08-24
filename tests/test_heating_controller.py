@@ -76,3 +76,8 @@ def test_switching_eco_away_comfort_mode():
     controller.set_mode("COMFORT")
     result = controller.get_action(current_temp=19)
     assert result == "HEATING"
+
+def test_invalid_mode():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    with pytest.raises(ValueError):
+        controller.set_mode("HOLIDAY")

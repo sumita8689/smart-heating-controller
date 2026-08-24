@@ -82,21 +82,15 @@ def test_invalid_mode():
     with pytest.raises(ValueError):
         controller.set_mode("HOLIDAY")
 
-def test_invalid_min_target_temperature():
+@pytest.mark.parametrize("target_temp",[19,31])
+def test_invalid_min_max_target_temperature(target_temp):
     with pytest.raises(ValueError):
-        HeatingController(target_temp=19, hysteresis=0.5)
+        HeatingController(target_temp, hysteresis=0.5)
 
-def test_invalid_max_target_temperature():
+@pytest.mark.parametrize("hysteresis",[-1,6])
+def test_invalid_min_max_hysteresis_temperature(hysteresis):
     with pytest.raises(ValueError):
-        HeatingController(target_temp=31, hysteresis=0.5)
-
-def test_invalid_min_hysteresis_temperature():
-    with pytest.raises(ValueError):
-        HeatingController(target_temp=21, hysteresis=-1)
-
-def test_invalid_max_hysteresis_temperature():
-    with pytest.raises(ValueError):
-        HeatingController(target_temp=21, hysteresis=6)
+        HeatingController(21, hysteresis)
 
 def test_target_temp_change_to_valid_value():
     controller = HeatingController(target_temp=21, hysteresis=0.5)

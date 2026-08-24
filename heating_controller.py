@@ -26,6 +26,8 @@ class HeatingController:
     def set_manual_override(self,mode):
         if mode == "OFF":
             self.manual = True
+        elif mode == "AUTO":
+            self.manual = False
 
     def get_action(self,current_temp):
         if current_temp >60 or current_temp < -50:

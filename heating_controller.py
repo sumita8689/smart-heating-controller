@@ -12,6 +12,10 @@ class HeatingController:
         if mode not in ["ECO","COMFORT","AWAY"]:
             raise ValueError("Invalid mode")
         self.mode =mode
+    def set_target_temperature(self,newtemp):
+        if newtemp <20 or newtemp >30:
+            raise ValueError("target temperature value outside range")
+        self.target_temp = newtemp
     def get_action(self,current_temp):
         if current_temp >60 or current_temp < -50:
             raise ValueError("Invalid Temperature")

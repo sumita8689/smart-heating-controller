@@ -97,3 +97,15 @@ def test_invalid_min_hysteresis_temperature():
 def test_invalid_max_hysteresis_temperature():
     with pytest.raises(ValueError):
         HeatingController(target_temp=21, hysteresis=6)
+
+def test_target_temp_change_to_valid_value():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    controller.set_target_temperature(23)
+    result = controller.get_action(22)
+    assert result== ("HEATING")
+
+def test_target_temp_change_to_invalid_value():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    with pytest.raises(ValueError):
+        controller.set_target_temperature(15)
+

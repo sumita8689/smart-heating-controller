@@ -85,3 +85,7 @@ def test_invalid_mode():
 def test_invalid_min_target_temperature():
     with pytest.raises(ValueError):
         HeatingController(target_temp=19, hysteresis=0.5)
+
+def test_invalid_max_target_temperature():
+    with pytest.raises(ValueError):
+        HeatingController(target_temp=31, hysteresis=0.5)

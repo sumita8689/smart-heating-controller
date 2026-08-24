@@ -1,5 +1,7 @@
 class HeatingController:
     def __init__(self,target_temp,hysteresis=0):
+        if target_temp < 20 or target_temp > 30:
+            raise ValueError("target temperature value outside range")
         self.target_temp= target_temp
         self.hysteresis = hysteresis
         self.action = "OFF"

@@ -4,3 +4,4 @@ class HeatingController:
     def get_action(self,current_temp):
         if current_temp < self.target_temp:
             return "HEATING"
+        return "OFF"

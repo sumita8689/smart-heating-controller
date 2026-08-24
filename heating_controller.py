@@ -24,6 +24,8 @@ class HeatingController:
         self.mode =mode
 
     def set_manual_override(self,mode):
+        if mode not in ["OFF","AUTO"]:
+            raise ValueError("Invalid mode")
         if mode == "OFF":
             self.manual = True
         elif mode == "AUTO":

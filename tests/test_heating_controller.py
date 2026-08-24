@@ -151,3 +151,18 @@ def test_new_controller_without_manualoverride_active():
     controller2 = HeatingController(target_temp=21, hysteresis=0.5)
     result = controller2.get_action(current_temp=10)
     assert result=="HEATING"
+
+def test_override_state_switch():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    controller.set_manual_override("OFF")
+    result = controller.get_action(current_temp=10)
+    assert result=="OFF"
+    controller.set_manual_override("AUTO")
+    result = controller.get_action(current_temp=10)
+    assert result=="HEATING"
+    controller.set_manual_override("OFF")
+    result = controller.get_action(current_temp=10)
+    assert result=="OFF"
+    controller.set_manual_override("AUTO")
+    result = controller.get_action(current_temp=10)
+    assert result=="HEATING"

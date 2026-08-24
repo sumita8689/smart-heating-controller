@@ -5,6 +5,8 @@ class HeatingController:
         self.action = "OFF"
         self.mode = "COMFORT"
     def set_mode(self,mode):
+        if mode not in ["ECO","COMFORT","AWAY"]:
+            raise ValueError("Invalid mode")
         self.mode =mode
     def get_action(self,current_temp):
         if current_temp >60 or current_temp < -50:

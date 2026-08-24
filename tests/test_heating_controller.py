@@ -81,3 +81,7 @@ def test_invalid_mode():
     controller = HeatingController(target_temp=21, hysteresis=0.5)
     with pytest.raises(ValueError):
         controller.set_mode("HOLIDAY")
+
+def test_invalid_min_target_temperature():
+    with pytest.raises(ValueError):
+        HeatingController(target_temp=19, hysteresis=0.5)

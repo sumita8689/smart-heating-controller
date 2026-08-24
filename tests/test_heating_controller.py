@@ -26,3 +26,8 @@ def test_rejects_temperature_above_maximum():
     controller = HeatingController(target_temp=21,hysteresis=0.5)
     with pytest.raises(ValueError):
         controller.get_action(61)
+
+def test_rejects_temperature_below_minimum():
+    controller = HeatingController(target_temp=21,hysteresis=0.5)
+    with pytest.raises(ValueError):
+        controller.get_action(-55)

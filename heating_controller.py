@@ -3,6 +3,8 @@ class HeatingController:
         if target_temp < 20 or target_temp > 30:
             raise ValueError("target temperature value outside range")
         self.target_temp= target_temp
+        if hysteresis< 0 or hysteresis> 5:
+            raise ValueError("hysteresis temperature value outside range")
         self.hysteresis = hysteresis
         self.action = "OFF"
         self.mode = "COMFORT"

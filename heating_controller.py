@@ -1,21 +1,27 @@
 class HeatingController:
     def __init__(self,target_temp,hysteresis=0):
-        if target_temp < 20 or target_temp > 30:
-            raise ValueError("target temperature value outside range")
+        self.validate_target_temp(target_temp)
         self.target_temp= target_temp
         if hysteresis< 0 or hysteresis> 5:
             raise ValueError("hysteresis temperature value outside range")
         self.hysteresis = hysteresis
         self.action = "OFF"
         self.mode = "COMFORT"
+
+    def validate_target_temp(self,targettemp):
+        if targettemp <20 or targettemp >30:
+            raise ValueError("target temperature value outside range")
+        return True
+
+    def set_target_temperature(self,newtemp):
+        self.validate_target_temp(newtemp)
+        self.target_temp = newtemp
+
     def set_mode(self,mode):
         if mode not in ["ECO","COMFORT","AWAY"]:
             raise ValueError("Invalid mode")
         self.mode =mode
-    def set_target_temperature(self,newtemp):
-        if newtemp <20 or newtemp >30:
-            raise ValueError("target temperature value outside range")
-        self.target_temp = newtemp
+
     def get_action(self,current_temp):
         if current_temp >60 or current_temp < -50:
             raise ValueError("Invalid Temperature")

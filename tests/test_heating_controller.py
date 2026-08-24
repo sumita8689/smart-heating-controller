@@ -128,3 +128,10 @@ def test_activate_manual_override_invalid():
     controller = HeatingController(target_temp=21, hysteresis=0.5)
     with pytest.raises(ValueError):
         controller.set_manual_override("ABC")
+
+def test_state_independence():
+    controller = HeatingController(target_temp=21, hysteresis=0.5)
+    controller.set_manual_override("OFF")
+    controller.set_target_temperature(27)
+    result = controller.get_action(current_temp=15)
+    assert result=="OFF"

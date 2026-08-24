@@ -1,3 +1,4 @@
+import pytest
 from heating_controller import HeatingController
 
 def test_heating_when_temp_below_target_temp():
@@ -20,3 +21,8 @@ def test_heating_remains_on_within_hysteresis_range():
     controller.get_action(current_temp=20.3)
     result = controller.get_action(current_temp=20.7)
     assert result == "HEATING"
+
+def test_rejects_temperature_above_maximum():
+    controller = HeatingController(target_temp=21,hysteresis=0.5)
+    with pytest.raises(ValueError):
+        controller.get_action(61)

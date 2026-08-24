@@ -3,11 +3,17 @@ class HeatingController:
         self.target_temp= target_temp
         self.hysteresis = hysteresis
         self.action = "OFF"
+        self.mode = "COMFORT"
+    def set_mode(self,mode):
+        self.mode =mode
     def get_action(self,current_temp):
         if current_temp >60 or current_temp < -50:
             raise ValueError("Invalid Temperature")
-        if current_temp < (self.target_temp- self.hysteresis):
+        effective_target = self.target_temp
+        if self.mode == "ECO":
+            effective_target = self.target_temp -2
+        if current_temp < (effective_target- self.hysteresis):
             self.action = "HEATING"
-        elif current_temp >= self.target_temp:
+        elif current_temp >= effective_target:
             self.action = "OFF"
         return self.action

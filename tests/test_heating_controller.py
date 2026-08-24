@@ -32,8 +32,14 @@ def test_rejects_temperature_below_minimum():
     with pytest.raises(ValueError):
         controller.get_action(-55)
 
-def test_heating_eco_mode():
+def test_off_eco_mode():
     controller = HeatingController(target_temp=21,hysteresis=0.5)
     controller.set_mode("ECO")
     result = controller.get_action(current_temp=19)
     assert result=="OFF"
+
+def test_heating_eco_mode():
+    controller = HeatingController(target_temp=21,hysteresis=0.5)
+    controller.set_mode("ECO")
+    result = controller.get_action(current_temp=18)
+    assert result=="HEATING"

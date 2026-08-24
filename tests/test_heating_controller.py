@@ -1,10 +1,6 @@
 import pytest
 from heating_controller import HeatingController
 
-@pytest.fixture()
-def controller():
-    return HeatingController(target_temp=21,hysteresis=0.5)
-
 def test_heating_when_temp_below_target_temp():
     controller = HeatingController(target_temp=21)
     result = controller.get_action(current_temp=19)

@@ -187,25 +187,15 @@ The CI pipeline runs independently of the local development environment using a 
 smart-heating-controller/
 
 ├── .github/
-
 │   └── workflows/
-
 │       └── tests.yml
-
 ├── tests/
-
 │   ├── conftest.py
-
 │   └── test_heating_controller.py
-
 ├── .gitignore
-
 ├── heating_controller.py
-
 ├── pytest.ini
-
 ├── requirements.txt
-
 └── README.md
 ```
 

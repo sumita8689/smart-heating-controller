@@ -1,8 +1,8 @@
-\# Smart Heating Controller
+# Smart Heating Controller
 
 
 
-\[!\[Tests](https://github.com/sumita8689/smart-heating-controller/actions/workflows/tests.yml/badge.svg)](https://github.com/sumita8689/smart-heating-controller/actions/workflows/tests.yml)
+[![Tests](https://github.com/sumita8689/smart-heating-controller/actions/workflows/tests.yml/badge.svg)](https://github.com/sumita8689/smart-heating-controller/actions/workflows/tests.yml)
 
 
 
@@ -10,7 +10,7 @@ A Python-based heating controller developed using Test-Driven Development (TDD),
 
 
 
-\## Overview
+## 📋 Overview
 
 
 
@@ -18,15 +18,15 @@ This project implements a smart heating controller that determines whether heati
 
 
 
-\- Current temperature
+- Current temperature
 
-\- Target temperature
+- Target temperature
 
-\- Hysteresis
+- Hysteresis
 
-\- Operating mode
+- Operating mode
 
-\- Manual override
+- Manual override
 
 
 
@@ -34,37 +34,37 @@ The project was developed incrementally using the RED-GREEN-REFACTOR TDD cycle.
 
 
 
-\## Features
+## 🔥 Features
 
 
 
-\- Target temperature control between 20°C and 30°C
+- Target temperature control between 20°C and 30°C
 
-\- Configurable hysteresis between 0°C and 5°C
+- Configurable hysteresis between 0°C and 5°C
 
-\- Operating modes:
+- Operating modes:
 
-&#x20; - "COMFORT"
+  - "COMFORT"
 
-&#x20; - "ECO"
+  - "ECO"
 
-&#x20; - "AWAY"
+  - "AWAY"
 
-\- Manual override with "OFF" and "AUTO"
+- Manual override with "OFF" and "AUTO"
 
-\- Temperature input validation
+- Temperature input validation
 
-\- Target temperature validation
+- Target temperature validation
 
-\- State-dependent hysteresis behavior
+- State-dependent hysteresis behavior
 
-\- Automatic heating "HEATING" / "OFF" decisions
+- Automatic heating "HEATING" / "OFF" decisions
 
-\- Invalid mode and parameter handling
+- Invalid mode and parameter handling
 
 
 
-\## Control Logic
+## 🎯 Control Logic
 
 
 
@@ -76,11 +76,11 @@ The effective target is adjusted according to the selected operating mode:
 
 
 
-\- COMFORT: target temperature unchanged
+- COMFORT: target temperature unchanged
 
-\- ECO: target temperature − 2°C
+- ECO: target temperature − 2°C
 
-\- AWAY: target temperature − 5°C
+- AWAY: target temperature − 5°C
 
 
 
@@ -88,7 +88,7 @@ Hysteresis prevents unnecessary switching between HEATING and OFF when the tempe
 
 
 
-\## Testing Strategy
+## 🧪 Testing Strategy
 
 
 
@@ -100,29 +100,29 @@ The test suite covers:
 
 
 
-\- Valid and invalid target temperatures
+- Valid and invalid target temperatures
 
-\- Valid and invalid hysteresis values
+- Valid and invalid hysteresis values
 
-\- Heating and OFF state transitions
+- Heating and OFF state transitions
 
-\- Hysteresis boundary behavior
+- Hysteresis boundary behavior
 
-\- COMFORT, ECO and AWAY operating modes
+- COMFORT, ECO and AWAY operating modes
 
-\- Manual override activation and deactivation
+- Manual override activation and deactivation
 
-\- Invalid operating modes and override commands
+- Invalid operating modes and override commands
 
-\- Target temperature changes during operation
+- Target temperature changes during operation
 
-\- Independence between controller instances
+- Independence between controller instances
 
-\- State interactions between operating modes and manual override
+- State interactions between operating modes and manual override
 
 
 
-\### Pytest
+### Pytest
 
 
 
@@ -130,15 +130,15 @@ The project uses Pytest features including:
 
 
 
-\- Fixtures via conftest.py
+- Fixtures via conftest.py
 
-\- Parametrized tests
+- Parametrized tests
 
-\- Exception testing with pytest.raises
+- Exception testing with pytest.raises
 
-\- Test discovery and configuration through pytest.ini
+- Test discovery and configuration through pytest.ini
 
-\- Coverage measurement with pytest-cov
+- Coverage measurement with pytest-cov
 
 
 
@@ -146,11 +146,11 @@ Current test coverage:
 
 
 
-\*\*100% statement coverage of `heating\_controller.py`\*\*
+**100% statement coverage of `heating_controller.py`**
 
 
 
-\## Continuous Integration
+## 🚀 Continuous Integration
 
 
 
@@ -162,15 +162,15 @@ The CI pipeline:
 
 
 
-1\. Checks out the repository
+1. Checks out the repository
 
-2\. Sets up Python 3.9
+2. Sets up Python 3.9
 
-3\. Installs the dependencies from `requirements.txt`
+3. Installs the dependencies from `requirements.txt`
 
-4\. Runs the complete Pytest suite
+4. Runs the complete Pytest suite
 
-5\. Generates the test coverage report
+5. Generates the test coverage report
 
 
 
@@ -178,7 +178,7 @@ The CI pipeline runs independently of the local development environment using a 
 
 
 
-\## Project Structure
+## 📁 Project Structure
 
 
 
@@ -196,11 +196,11 @@ smart-heating-controller/
 
 │   ├── conftest.py
 
-│   └── test\_heating\_controller.py
+│   └── test_heating_controller.py
 
 ├── .gitignore
 
-├── heating\_controller.py
+├── heating_controller.py
 
 ├── pytest.ini
 
@@ -210,15 +210,8 @@ smart-heating-controller/
 ```
 
 
-\## How to Run
-
-
-
-\### Windows PowerShell
-
-
-
-
+## ▶️ How to Run
+### Windows PowerShell
 
 ```powershell
 
@@ -228,7 +221,7 @@ cd smart-heating-controller
 
 python -m venv .venv
 
-.venv\\Scripts\\Activate.ps1
+.venv\Scripts\Activate.ps1
 
 python -m pip install -r requirements.txt
 
@@ -238,19 +231,17 @@ python -m pytest
 
 
 
-\## TDD Development Workflow
-
-
+## 🔴🟢🔵 TDD Development Workflow
 
 The controller was developed incrementally using the RED-GREEN-REFACTOR cycle.
 
 
 
-1\. RED — Write a failing test for a new requirement.
+1. RED — Write a failing test for a new requirement.
 
-2\. GREEN — Implement the minimum code required to make the test pass.
+2. GREEN — Implement the minimum code required to make the test pass.
 
-3\. REFACTOR — Improve the implementation or test structure while keeping all tests green.
+3. REFACTOR — Improve the implementation or test structure while keeping all tests green.
 
 
 
@@ -258,21 +249,21 @@ Examples covered during development include:
 
 
 
-\- Target temperature validation
+- Target temperature validation
 
-\- Hysteresis validation
+- Hysteresis validation
 
-\- Operating mode validation
+- Operating mode validation
 
-\- Manual override behavior
+- Manual override behavior
 
-\- State transitions
+- State transitions
 
-\- Hysteresis boundary behavior
+- Hysteresis boundary behavior
 
-\- Target temperature changes during operation
+- Target temperature changes during operation
 
-\- Test parametrization and fixture refactoring
+- Test parametrization and fixture refactoring
 
 
 
@@ -280,21 +271,21 @@ The Git history documents the incremental development process through separate t
 
 
 
-\## Development Highlights
+## 📌 Development Highlights
 
 
 
-\- Developed incrementally using TDD and Git-based RED-GREEN-REFACTOR workflow
+- Developed incrementally using TDD and Git-based RED-GREEN-REFACTOR workflow
 
-\- Implemented stateful heating control with hysteresis
+- Implemented stateful heating control with hysteresis
 
-\- Added operating modes and manual override handling
+- Added operating modes and manual override handling
 
-\- Built reusable Pytest fixtures and parametrized validation tests
+- Built reusable Pytest fixtures and parametrized validation tests
 
-\- Achieved 100% statement coverage for the production controller
+- Achieved 100% statement coverage for the production controller
 
-\- Integrated automated testing into GitHub Actions CI
+- Integrated automated testing into GitHub Actions CI
 
 
 

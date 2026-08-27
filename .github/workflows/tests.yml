@@ -16,7 +16,7 @@ jobs:
 
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
-	
+
       - name: Start Mosquitto Docker container
         run: docker run -d -p 1883:1883 eclipse-mosquitto
 

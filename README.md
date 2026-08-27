@@ -6,7 +6,7 @@
 
 
 
-A Python-based heating controller developed using Test-Driven Development (TDD), with Pytest, test coverage, and GitHub Actions CI.
+A Python-based smart heating controller developed using Test-Driven Development (TDD), extended with MQTT-based IoT communication, Dockerized Mosquitto, and automated integration testing with Pytest and GitHub Actions CI.
 
 
 
@@ -33,6 +33,9 @@ This project implements a smart heating controller that determines whether heati
 The project was developed incrementally using the RED-GREEN-REFACTOR TDD cycle.
 
 
+## 📡 MQTT Communication
+
+The heating controller is extended with MQTT-based communication to simulate an IoT environment. A publisher sends temperature values to the `sumita/heating/temperature` MQTT topic. A Dockerized Mosquitto broker handles the communication, while the subscriber receives the temperature messages and passes them to the `HeatingController` for processing. The resulting heating action (`HEATING` or `OFF`) is then stored and verified through automated MQTT integration tests.
 
 ## 🔥 Features
 
@@ -95,7 +98,6 @@ Hysteresis prevents unnecessary switching between HEATING and OFF when the tempe
 The project was developed using a Test-Driven Development (TDD) approach following the RED-GREEN-REFACTOR cycle.
 
 
-
 The test suite covers:
 
 
@@ -120,6 +122,12 @@ The test suite covers:
 
 - State interactions between operating modes and manual override
 
+### MQTT Integration Testing
+
+MQTT communication is tested using a real Mosquitto broker running in Docker. The integration tests create a subscriber and publisher, exchange temperature messages through the MQTT topic, and verify that the `HeatingController` produces the expected heating action.
+
+The tests use `threading.Event` objects to synchronize the asynchronous MQTT callbacks and ensure that the message has been received and processed before the assertions are evaluated.
+
 
 
 ### Pytest
@@ -140,15 +148,17 @@ The project uses Pytest features including:
 
 - Coverage measurement with pytest-cov
 
-
-
 Current test coverage:
-
-
 
 **100% statement coverage of `heating_controller.py`**
 
 
+
+## 🐳 Dockerized MQTT Broker
+
+The MQTT broker is provided by Eclipse Mosquitto running in a Docker container. The broker exposes port `1883` for MQTT communication between the publisher and subscriber.
+
+For local development, the Mosquitto container is started using Docker, allowing the MQTT integration tests to communicate with the broker through `localhost:1883`.
 
 ## 🚀 Continuous Integration
 
@@ -168,9 +178,11 @@ The CI pipeline:
 
 3. Installs the dependencies from `requirements.txt`
 
-4. Runs the complete Pytest suite
+4. Starts a Mosquitto MQTT broker in a Docker container
 
-5. Generates the test coverage report
+5. Runs the complete Pytest suite
+
+6. Generates the test coverage report
 
 
 
@@ -185,14 +197,17 @@ The CI pipeline runs independently of the local development environment using a 
 ```text
 
 smart-heating-controller/
-
 ├── .github/
 │   └── workflows/
 │       └── tests.yml
+├── mqtt/
+│   ├── __init__.py
+│   ├── publisher.py
+│   └── subscriber.py
 ├── tests/
 │   ├── conftest.py
-│   └── test_heating_controller.py
-├── .gitignore
+│   ├── test_heating_controller.py
+│   └── test_mqtt_subscriber.py
 ├── heating_controller.py
 ├── pytest.ini
 ├── requirements.txt
@@ -214,6 +229,8 @@ python -m venv .venv
 .venv\Scripts\Activate.ps1
 
 python -m pip install -r requirements.txt
+
+docker run -d -p 1883:1883 eclipse-mosquitto
 
 python -m pytest
 
@@ -276,6 +293,8 @@ The Git history documents the incremental development process through separate t
 - Achieved 100% statement coverage for the production controller
 
 - Integrated automated testing into GitHub Actions CI
+
+- Implemented MQTT-based IoT communication with a Dockerized Mosquitto broker and automated integration testing
 
 
 

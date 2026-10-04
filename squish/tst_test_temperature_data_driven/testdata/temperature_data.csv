@@ -1,0 +1,4 @@
+"target_temperature","expected_status"
+"20.0","HEATING"
+"21.0","HEATING"
+"25.0","HEATING"

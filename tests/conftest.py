@@ -13,15 +13,21 @@ def mqtt_fixture(controller):
     event2 = threading.Event()
     data = {'controller': controller, 'event_subscribe': event1, 'event_process': event2, 'action': 'OFF'}
     client_subscriber = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, userdata=data)
+    #call back programming for calling on recieving CONNACK and message
     client_subscriber.on_connect = on_connect
     client_subscriber.on_message = on_msg
+    #connects to mosquitto via TCP connection localhost 1883
     client_subscriber.connect("localhost", 1883)
+    #starts a background loop and listen for MQTT events
     client_subscriber.loop_start()
     assert event1.wait(5)
+    #second MQTT client to publish
     client_publisher = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     client_publisher.connect("localhost", 1883)
     print("Connected")
+    # starts a background loop for publishing
     client_publisher.loop_start()
+    #gives the three objects to the test
     yield client_publisher,data,event2
     client_publisher.loop_stop()
     client_publisher.disconnect()
